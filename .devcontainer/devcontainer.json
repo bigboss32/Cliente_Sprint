@@ -1,0 +1,19 @@
+{
+  "name": "springboot-app",
+  "build": {
+    "dockerfile": "Dockerfile.dev"
+  },
+  "workspaceFolder": "/app",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind"
+  ],
+  "extensions": [
+    "vscjava.vscode-java-pack",
+    "pivotal.vscode-spring-boot",
+    "PKief.material-icon-theme"
+  ],
+  "forwardPorts": [8080],
+  "settings": {
+    "java.home": "/opt/java/openjdk"
+  }
+}
