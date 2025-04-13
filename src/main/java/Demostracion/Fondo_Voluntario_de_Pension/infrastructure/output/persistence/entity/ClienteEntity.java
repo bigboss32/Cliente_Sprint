@@ -1,5 +1,7 @@
 package Demostracion.Fondo_Voluntario_de_Pension.infrastructure.output.persistence.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,21 +9,22 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class ClienteEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
+
     private String nombre;
 
-    @Column(nullable = false)
-    private String apellidos;
-    
-    @Column(nullable = false)
-    private String ciudad;
-        
+    private long saldo;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TransaccionEntity> transacciones;
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private NotificacionPreferenciaEntity notificacion;
+
+    // Getters y Setters
 }

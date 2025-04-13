@@ -1,11 +1,78 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "docker-compose up",
-        "type": "shell",
-        "command": "docker-compose up --build",
-        "problemMatcher": []
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Spring Boot App",
+      "type": "shell",
+      "command": "./gradlew bootRun",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "detail": "Ejecuta Spring Boot con Gradle"
+    },
+    {
+      "label": "Refresh Gradle Dependencies",
+      "type": "shell",
+      "command": "./gradlew --refresh-dependencies",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "detail": "Forzar la descarga de dependencias desde cero"
+    },
+    {
+      "label": "Jacoco Report",
+      "type": "shell",
+      "command": "./gradlew clean test jacocoTestReport; if ($?) { start build\\reports\\jacoco\\test\\html\\index.html }",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command"]
+        }
       }
-    ]
-  }
+    },
+    {
+      "label": "Gradle Clean Build",
+      "type": "shell",
+      "command": "./gradlew clean build",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      }
+    },
+    {
+      "label": "Run SonarQube Analysis",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [
+        "sonar",
+        "'-Dsonar.projectKey=yoint-payments'",
+        "'-Dsonar.projectName=yoint-payments'",
+        "'-Dsonar.host.url=http://localhost:9000'",
+        "'-Dsonar.token=sqp_f42a61abf3b472c5ae89081ab67bcfe1f6ba03f4'",
+        "'-Dsonar.exclusions=/dto/,/search/,/co/yoint/payments/application/service/impl/SearchSubscriptionImpl.java,/co/yoint/payments/application/graphql/scalars/'"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command"]
+        }
+      }
+    }
+  ]
+}
